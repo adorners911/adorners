@@ -56,7 +56,7 @@ export default function Footer() {
 
           {/* Contact col */}
           <div className="md:col-span-4 md:col-start-10">
-            <h3 className="font-sans text-xs tracking-[0.15em] uppercase text-white/35 mb-5">Contact</h3>
+            <h3 className="font-sans text-xs tracking-[0.15em] uppercase text-white/35 mb-5">Get in Touch</h3>
             <div className="flex flex-col gap-3">
               <a
                 href="https://wa.me/923219232302"
