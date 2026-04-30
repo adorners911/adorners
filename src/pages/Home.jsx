@@ -1,35 +1,34 @@
 import { Link } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 
-// ── placeholder project images (replace with real Adorners photos) ──
 const PROJECTS = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1615529328331-f8917597711f?auto=format&fit=crop&w=900&q=80',
+    image: '/1/677040124_1455291166391771_7741553536304942736_n.jpg',
     category: 'Interior Design',
-    title: 'Luxury Penthouse',
-    location: 'DHA Phase 6, Karachi',
+    title: 'Luxury Master Bedroom',
+    location: 'Karachi',
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=900&q=80',
-    category: 'Architecture',
-    title: 'Modern Villa',
-    location: 'Bahria Town, Karachi',
+    image: '/2/619382532_1387919326462289_6719171871692918016_n.jpg',
+    category: 'Interior Design',
+    title: 'Modern Living Suite',
+    location: 'Karachi',
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=900&q=80',
-    category: 'Interior Design',
-    title: 'Executive Office',
-    location: 'Clifton, Karachi',
+    image: '/office/619809994_1388476919739863_2117989168984840608_n.jpg',
+    category: 'Commercial Interior',
+    title: 'Corporate Office',
+    location: 'Karachi',
   },
   {
     id: 4,
-    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=900&q=80',
-    category: 'Civil Work',
-    title: 'Residential Complex',
-    location: 'Bahria Town, Karachi',
+    image: '/sm%20garments/623259867_1391300766124145_3753457068510481627_n.jpg',
+    category: 'Retail Design',
+    title: 'SM Garments Showroom',
+    location: 'Karachi',
   },
 ]
 
