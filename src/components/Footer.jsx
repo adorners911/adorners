@@ -64,7 +64,7 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 className="font-sans text-sm text-white/60 hover:text-brand transition-colors duration-200"
               >
-                WhatsApp: 0327 3273667
+                WhatsApp: 0327 327 3667
               </a>
               <a
                 href="tel:+923273273667"
