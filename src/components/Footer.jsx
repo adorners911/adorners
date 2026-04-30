@@ -26,7 +26,7 @@ export default function Footer() {
               Bahria Town's all-in-one design-build firm. We handle architecture, interior design, and civil construction — from concept to key handover.
             </p>
             <a
-              href="https://wa.me/923219232302?text=Hi+Adorners!+I'm+interested+in+your+services."
+              href="https://wa.me/923273273667?text=Hi+Adorners!+I'm+interested+in+your+services."
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 bg-brand text-white text-sm font-sans font-medium hover:bg-brand/90 transition-colors duration-200"
@@ -59,18 +59,18 @@ export default function Footer() {
             <h3 className="font-sans text-xs tracking-[0.15em] uppercase text-white/35 mb-5">Get in Touch</h3>
             <div className="flex flex-col gap-3">
               <a
-                href="https://wa.me/923219232302"
+                href="https://wa.me/923273273667"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-sans text-sm text-white/60 hover:text-brand transition-colors duration-200"
               >
-                WhatsApp: 0321 9232302
+                WhatsApp: 0327 3273667
               </a>
               <a
-                href="tel:+923219232302"
+                href="tel:+923273273667"
                 className="font-sans text-sm text-white/60 hover:text-brand transition-colors duration-200"
               >
-                Phone: 0321 9232302
+                Phone: 0327 3273667
               </a>
               <a
                 href="mailto:adornersaic@gmail.com"

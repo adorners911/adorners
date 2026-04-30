@@ -73,7 +73,7 @@ const SERVICES = [
 
 const STATS = [
   { value: '200+', label: 'Projects Completed' },
-  { value: '10+', label: 'Years of Experience' },
+  { value: '20+', label: 'Years of Experience' },
   { value: '1', label: 'Team. Everything.' },
 ]
 
@@ -322,7 +322,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center mt-9">
               <a
-                href="https://wa.me/923219232302?text=Hi+Adorners!+I'd+like+a+free+consultation."
+                href="https://wa.me/923273273667?text=Hi+Adorners!+I'd+like+a+free+consultation."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-brand text-white font-sans font-medium text-sm hover:bg-brand/90 transition-colors duration-200"

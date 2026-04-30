@@ -16,6 +16,25 @@ const PROJECT_TYPES = [
   'Other',
 ]
 
+const BUDGET_RANGES = [
+  'Under PKR 5 Lakh',
+  'PKR 5 – 10 Lakh',
+  'PKR 10 – 20 Lakh',
+  'PKR 20 – 35 Lakh',
+  'PKR 35 – 50 Lakh',
+  'PKR 50 Lakh+',
+  'Not decided yet',
+]
+
+const PRICING_TYPES = [
+  'Turnkey / Fixed Price (we handle everything)',
+  'Design Only (no construction)',
+  'Construction Only (design ready)',
+  'Cost + Management Fee',
+  'Consultation / Advisory',
+  'Not sure — need guidance',
+]
+
 function Reveal({ children, delay = 0, className = '' }) {
   const [ref, inView] = useInView()
   return (
@@ -42,6 +61,8 @@ export default function Contact() {
     name: '',
     phone: '',
     projectType: '',
+    budget: '',
+    pricingType: '',
     message: '',
   })
   const [status, setStatus] = useState('idle') // idle | sending | success | error
@@ -103,7 +124,7 @@ export default function Contact() {
                     Most clients prefer WhatsApp — we respond quickly and can share project photos, quotes, and portfolios directly.
                   </p>
                   <a
-                    href="https://wa.me/923219232302?text=Hi+Adorners!+I'd+like+to+discuss+a+project."
+                    href="https://wa.me/923273273667?text=Hi+Adorners!+I'd+like+to+discuss+a+project."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3.5 bg-brand text-white font-sans text-sm font-medium hover:bg-brand/90 transition-colors duration-200"
@@ -121,19 +142,19 @@ export default function Contact() {
                 <div className="flex flex-col gap-6">
                   <div>
                     <p className="font-sans text-xs tracking-[0.18em] uppercase text-muted/50 mb-1">Phone</p>
-                    <a href="tel:+923219232302" className="font-display text-xl text-dark hover:text-brand transition-colors">
-                      0321 9232302
+                    <a href="tel:+923273273667" className="font-sans text-base text-dark hover:text-brand transition-colors">
+                      0327 3273667
                     </a>
                   </div>
                   <div>
                     <p className="font-sans text-xs tracking-[0.18em] uppercase text-muted/50 mb-1">Email</p>
-                    <a href="mailto:adornersaic@gmail.com" className="font-display text-xl text-dark hover:text-brand transition-colors break-all">
+                    <a href="mailto:adornersaic@gmail.com" className="font-sans text-base text-dark hover:text-brand transition-colors break-all">
                       adornersaic@gmail.com
                     </a>
                   </div>
                   <div>
                     <p className="font-sans text-xs tracking-[0.18em] uppercase text-muted/50 mb-1">Office</p>
-                    <address className="font-sans text-sm text-muted not-italic leading-relaxed">
+                    <address className="font-sans text-base text-dark not-italic leading-relaxed">
                       Hallmark Tower 2, Plot No. 96<br />
                       Suit No 301, Midway Commercial-B<br />
                       Bahria Town, Karachi
@@ -158,7 +179,7 @@ export default function Contact() {
                     </div>
                     <h3 className="font-display text-2xl text-dark mb-2">Message Sent!</h3>
                     <p className="font-sans text-sm text-muted">
-                      We'll get back to you shortly. For faster response, WhatsApp us at 0321 9232302.
+                      We'll get back to you shortly. For faster response, WhatsApp us at 0327 3273667.
                     </p>
                   </div>
                 ) : (
@@ -214,6 +235,44 @@ export default function Contact() {
                       </select>
                     </div>
 
+                    {/* Budget */}
+                    <div>
+                      <label className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
+                        Budget Range
+                      </label>
+                      <select
+                        name="budget"
+                        value={form.budget}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3.5 border border-gray-200 font-sans text-sm text-dark focus:outline-none focus:border-brand transition-colors duration-200 bg-white appearance-none"
+                        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center' }}
+                      >
+                        <option value="">Select your budget</option>
+                        {BUDGET_RANGES.map((b) => (
+                          <option key={b} value={b}>{b}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Pricing Type */}
+                    <div>
+                      <label className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
+                        Pricing Preference
+                      </label>
+                      <select
+                        name="pricingType"
+                        value={form.pricingType}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3.5 border border-gray-200 font-sans text-sm text-dark focus:outline-none focus:border-brand transition-colors duration-200 bg-white appearance-none"
+                        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 16px center' }}
+                      >
+                        <option value="">Select pricing type</option>
+                        {PRICING_TYPES.map((p) => (
+                          <option key={p} value={p}>{p}</option>
+                        ))}
+                      </select>
+                    </div>
+
                     {/* Message */}
                     <div>
                       <label className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
@@ -231,7 +290,7 @@ export default function Contact() {
 
                     {status === 'error' && (
                       <p className="font-sans text-sm text-red-500">
-                        Something went wrong. Please try WhatsApp at 0321 9232302.
+                        Something went wrong. Please try WhatsApp at 0327 3273667.
                       </p>
                     )}
 
@@ -246,7 +305,7 @@ export default function Contact() {
                     <p className="font-sans text-xs text-muted/50 text-center">
                       Prefer WhatsApp?{' '}
                       <a
-                        href="https://wa.me/923219232302"
+                        href="https://wa.me/923273273667"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-brand hover:underline"

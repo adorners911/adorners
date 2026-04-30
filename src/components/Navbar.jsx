@@ -121,8 +121,8 @@ export default function Navbar() {
             Get a Free Consultation
           </Link>
           <div className="flex flex-col gap-1">
-            <a href="https://wa.me/923219232302" className="font-sans text-sm text-muted hover:text-brand transition-colors">
-              WhatsApp: 0321 9232302
+            <a href="https://wa.me/923273273667" className="font-sans text-sm text-muted hover:text-brand transition-colors">
+              WhatsApp: 0327 3273667
             </a>
             <a href="mailto:adornersaic@gmail.com" className="font-sans text-sm text-muted hover:text-brand transition-colors">
               adornersaic@gmail.com
