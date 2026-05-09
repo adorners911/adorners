@@ -44,9 +44,13 @@ const PROJECTS = [
     title: 'Beauty Saloon',
     images: [
       '/saloon/30bc01c5-c86e-41a9-982a-90c8e026bc0e.jpeg',
+      '/saloon/57ecf808-7110-43c5-a9db-78eea4ce6eec.jpeg',
+      '/saloon/376b084d-5782-4bf3-a7df-060671c97d94.jpeg',
+      '/saloon/82390fb0-d629-4b75-83a8-956a74547f69.jpeg',
       '/saloon/08298a6b-e9ed-4343-bfb0-e03913cace35.jpeg',
       '/saloon/6b04b915-3140-463f-867f-0bc60df55935.jpeg',
       '/saloon/342e8aa1-fe9d-4a38-809d-29efb69f6d06.jpeg',
+      '/saloon/38e7a213-27b3-4d36-bafa-d3a16db3ee80.jpeg',
     ],
   },
   {
@@ -77,10 +81,11 @@ const PROJECTS = [
     category: 'Commercial',
     title: 'SM Garments Showroom',
     images: [
+      '/sm garments/4bf28366-fab7-4706-8e7e-f05d0cab3a13.jpeg',
       '/sm garments/20ee703a-7858-400e-9f8e-84861151d90d.jpeg',
       '/sm garments/02d44263-c554-4aa8-bd18-b399a80c0490.jpeg',
+      '/sm garments/5986ec96-7bdf-49f5-8b50-845c1fad1d91.jpeg',
       '/sm garments/09659062-e8d2-4e3b-8c77-f4817f3d60bc.jpeg',
-      '/sm garments/0b3d35dd-c82c-4709-a605-003d576c7ae2.jpeg',
     ],
   },
 ]
