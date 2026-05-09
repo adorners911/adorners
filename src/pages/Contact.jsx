@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
 
-const WEB3FORMS_KEY = '69beb1e6-20d9-426c-9801-b384adec6484'
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
 
 const PROJECT_TYPES = [
   'New Home Construction',
