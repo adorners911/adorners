@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 
@@ -43,9 +43,9 @@ const PROJECTS = [
     category: 'Commercial',
     title: 'Beauty Saloon',
     images: [
+      '/saloon/30bc01c5-c86e-41a9-982a-90c8e026bc0e.jpeg',
       '/saloon/08298a6b-e9ed-4343-bfb0-e03913cace35.jpeg',
       '/saloon/6b04b915-3140-463f-867f-0bc60df55935.jpeg',
-      '/saloon/30bc01c5-c86e-41a9-982a-90c8e026bc0e.jpeg',
       '/saloon/342e8aa1-fe9d-4a38-809d-29efb69f6d06.jpeg',
     ],
   },
@@ -77,28 +77,104 @@ const PROJECTS = [
     category: 'Commercial',
     title: 'SM Garments Showroom',
     images: [
-      '/sm garments/623259867_1391300766124145_3753457068510481627_n.jpg',
-      '/sm garments/623900253_1391300266124195_6523579509969916865_n.jpg',
-      '/sm garments/624583077_1391300686124153_4097672179650292389_n.jpg',
-      '/sm garments/625000757_1391299836124238_2691684960122771318_n.jpg',
+      '/sm garments/20ee703a-7858-400e-9f8e-84861151d90d.jpeg',
+      '/sm garments/02d44263-c554-4aa8-bd18-b399a80c0490.jpeg',
+      '/sm garments/09659062-e8d2-4e3b-8c77-f4817f3d60bc.jpeg',
+      '/sm garments/0b3d35dd-c82c-4709-a605-003d576c7ae2.jpeg',
     ],
   },
 ]
 
 const FILTERS = ['All', 'Bungalow', 'Bedroom', 'Interior', 'Office', 'Commercial']
 
-function ProjectCard({ project }) {
+function Lightbox({ project, startIndex, onClose }) {
+  const [current, setCurrent] = useState(startIndex)
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'ArrowRight') setCurrent(c => (c + 1) % project.images.length)
+      if (e.key === 'ArrowLeft') setCurrent(c => (c - 1 + project.images.length) % project.images.length)
+    }
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [project.images.length, onClose])
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/90 flex flex-col items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-5 text-white/70 hover:text-white text-3xl font-light"
+      >
+        ×
+      </button>
+
+      <div
+        className="relative w-full max-w-4xl"
+        onClick={e => e.stopPropagation()}
+      >
+        <img
+          src={project.images[current]}
+          alt={project.title}
+          className="w-full max-h-[75vh] object-contain"
+        />
+
+        {project.images.length > 1 && (
+          <>
+            <button
+              onClick={() => setCurrent(c => (c - 1 + project.images.length) % project.images.length)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 text-white/70 hover:text-white text-4xl px-3"
+            >
+              ‹
+            </button>
+            <button
+              onClick={() => setCurrent(c => (c + 1) % project.images.length)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 text-white/70 hover:text-white text-4xl px-3"
+            >
+              ›
+            </button>
+          </>
+        )}
+      </div>
+
+      <div className="flex gap-2 mt-4">
+        {project.images.map((img, i) => (
+          <button
+            key={i}
+            onClick={e => { e.stopPropagation(); setCurrent(i) }}
+            className={`w-14 h-10 overflow-hidden border-2 transition-all ${i === current ? 'border-brand' : 'border-transparent opacity-50 hover:opacity-75'}`}
+          >
+            <img src={img} alt="" className="w-full h-full object-cover" />
+          </button>
+        ))}
+      </div>
+
+      <p className="font-sans text-white/50 text-sm mt-3">
+        {current + 1} / {project.images.length} — {project.title}
+      </p>
+    </div>
+  )
+}
+
+function ProjectCard({ project, onOpen }) {
   const [ref, inView] = useInView()
-  const [activeImg, setActiveImg] = useState(0)
 
   return (
     <div
       ref={ref}
-      className={`group transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      className={`group cursor-pointer transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+      onClick={() => onOpen(project, 0)}
     >
       <div className="relative overflow-hidden aspect-[4/3] bg-gray-100">
         <img
-          src={project.images[activeImg]}
+          src={project.images[0]}
           alt={project.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
@@ -106,25 +182,17 @@ function ProjectCard({ project }) {
           <div>
             <span className="block font-sans text-xs text-brand uppercase tracking-widest mb-1">{project.category}</span>
             <span className="block font-display text-xl text-white">{project.title}</span>
+            <span className="block font-sans text-xs text-white/70 mt-1">{project.images.length} photos — click to view</span>
           </div>
         </div>
       </div>
 
-      {project.images.length > 1 && (
-        <div className="flex gap-2 mt-2">
-          {project.images.map((img, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveImg(i)}
-              className={`flex-1 h-1 transition-colors duration-200 ${i === activeImg ? 'bg-brand' : 'bg-gray-200 hover:bg-gray-300'}`}
-            />
-          ))}
+      <div className="mt-3 flex items-center justify-between">
+        <div>
+          <span className="font-sans text-xs text-brand uppercase tracking-widest">{project.category}</span>
+          <h3 className="font-display text-lg text-dark mt-0.5">{project.title}</h3>
         </div>
-      )}
-
-      <div className="mt-3">
-        <span className="font-sans text-xs text-brand uppercase tracking-widest">{project.category}</span>
-        <h3 className="font-display text-lg text-dark mt-0.5">{project.title}</h3>
+        <span className="font-sans text-xs text-muted">{project.images.length} photos</span>
       </div>
     </div>
   )
@@ -132,6 +200,7 @@ function ProjectCard({ project }) {
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('All')
+  const [lightbox, setLightbox] = useState(null)
   const [heroRef, heroInView] = useInView()
 
   const filtered = activeFilter === 'All'
@@ -140,11 +209,16 @@ export default function Portfolio() {
 
   return (
     <div className="pt-20 md:pt-24">
+      {lightbox && (
+        <Lightbox
+          project={lightbox.project}
+          startIndex={lightbox.index}
+          onClose={() => setLightbox(null)}
+        />
+      )}
+
       {/* Hero */}
-      <section
-        ref={heroRef}
-        className="py-16 md:py-24 px-6 bg-stone-50"
-      >
+      <section ref={heroRef} className="py-16 md:py-24 px-6 bg-stone-50">
         <div className={`max-w-3xl mx-auto text-center transition-all duration-700 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <span className="font-sans text-xs text-brand uppercase tracking-[0.2em]">Our Work</span>
           <h1 className="font-display text-4xl md:text-6xl text-dark font-light mt-3 mb-5">
@@ -158,15 +232,13 @@ export default function Portfolio() {
 
       {/* Filter */}
       <section className="sticky top-16 md:top-20 z-30 bg-white border-b border-gray-100 px-6">
-        <div className="max-w-7xl mx-auto flex gap-1 overflow-x-auto py-3 scrollbar-hide">
+        <div className="max-w-7xl mx-auto flex gap-1 overflow-x-auto py-3">
           {FILTERS.map(f => (
             <button
               key={f}
               onClick={() => setActiveFilter(f)}
               className={`flex-shrink-0 px-5 py-2 font-sans text-sm transition-all duration-200 ${
-                activeFilter === f
-                  ? 'bg-brand text-white'
-                  : 'text-dark/60 hover:text-brand hover:bg-brand/5'
+                activeFilter === f ? 'bg-brand text-white' : 'text-dark/60 hover:text-brand hover:bg-brand/5'
               }`}
             >
               {f}
@@ -180,7 +252,11 @@ export default function Portfolio() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filtered.map(project => (
-              <ProjectCard key={project.id} project={project} />
+              <ProjectCard
+                key={project.id}
+                project={project}
+                onOpen={(p, i) => setLightbox({ project: p, index: i })}
+              />
             ))}
           </div>
         </div>
