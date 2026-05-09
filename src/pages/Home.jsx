@@ -18,16 +18,16 @@ const PROJECTS = [
   },
   {
     id: 3,
-    image: '/travel agency/298ed607-c7ab-4bed-b8f9-0646a798e4a9.jpeg',
+    image: '/travel agency/59917b89-1d2a-4971-abea-ba38e5e9a4cb.jpeg',
     category: 'Commercial',
     title: 'Travel Agency',
     location: 'Karachi',
   },
   {
     id: 4,
-    image: '/saloon/08298a6b-e9ed-4343-bfb0-e03913cace35.jpeg',
-    category: 'Commercial',
-    title: 'Beauty Saloon',
+    image: '/bedroom/e5a21ac8-dc5e-4994-b9e4-81a15e8e054e.jpeg',
+    category: 'Interior Design',
+    title: 'Luxury Bedroom',
     location: 'Karachi',
   },
 ]
