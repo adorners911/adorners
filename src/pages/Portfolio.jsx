@@ -86,6 +86,9 @@ const PROJECTS = [
       '/sm garments/02d44263-c554-4aa8-bd18-b399a80c0490.jpeg',
       '/sm garments/5986ec96-7bdf-49f5-8b50-845c1fad1d91.jpeg',
       '/sm garments/09659062-e8d2-4e3b-8c77-f4817f3d60bc.jpeg',
+      '/sm2/af1ce7af-0c82-4a4e-97a0-e01509c7f291.jpeg',
+      '/sm2/c06e9363-bd56-4277-b7b2-59ea638a29e9.jpeg',
+      '/sm2/f963f38a-e566-4498-bffe-66f83ac52550.jpeg',
     ],
   },
 ]

@@ -178,7 +178,7 @@ export default function Home() {
               </h2>
             </div>
             <Link
-              to="/contact"
+              to="/portfolio"
               className="font-sans text-sm text-brand border-b border-brand pb-0.5 hover:text-brand/70 hover:border-brand/70 transition-colors whitespace-nowrap self-start md:self-auto"
             >
               View All Work →
@@ -188,7 +188,7 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6">
             {PROJECTS.map((p, i) => (
               <Reveal key={p.id} delay={i * 0.07}>
-                <div className="group relative overflow-hidden bg-gray-50 aspect-[4/3]">
+                <Link to="/portfolio" className="group relative overflow-hidden bg-gray-50 aspect-[4/3] block">
                   <img
                     src={p.image}
                     alt={p.title}
@@ -209,7 +209,7 @@ export default function Home() {
                       {p.category}
                     </span>
                   </div>
-                </div>
+                </Link>
               </Reveal>
             ))}
           </div>
