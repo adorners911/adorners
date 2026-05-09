@@ -1,9 +1,7 @@
 import { useState } from 'react'
 import { useInView } from '../hooks/useInView'
 
-// Replace YOUR_FORM_ID with your Formspree form endpoint
-// Sign up at formspree.io → Create Form → copy the ID
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'
+const WEB3FORMS_KEY = '69beb1e6-20d9-426c-9801-b384adec6484'
 
 const PROJECT_TYPES = [
   'New Home Construction',
@@ -75,10 +73,10 @@ export default function Contact() {
     e.preventDefault()
     setStatus('sending')
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ access_key: WEB3FORMS_KEY, ...form }),
       })
       if (res.ok) {
         setStatus('success')
