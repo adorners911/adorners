@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 
 const PROJECTS = [
@@ -199,6 +199,15 @@ export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState('All')
   const [lightbox, setLightbox] = useState(null)
   const [heroRef, heroInView] = useInView()
+  const location = useLocation()
+
+  useEffect(() => {
+    const openId = location.state?.openId
+    if (openId) {
+      const project = PROJECTS.find(p => p.id === openId)
+      if (project) setLightbox({ project, index: 0 })
+    }
+  }, [])
 
   const filtered = activeFilter === 'All'
     ? PROJECTS

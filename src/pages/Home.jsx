@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 
 const PROJECTS = [
   {
     id: 1,
+    portfolioId: 1,
     image: '/banglow/bc17ae0f-7cfb-40f0-b4f2-8ec12a8256eb.jpeg',
     category: 'Architecture',
     title: 'Modern Bungalow',
@@ -12,6 +12,7 @@ const PROJECTS = [
   },
   {
     id: 2,
+    portfolioId: 5,
     image: '/tradational office/14998486-66d4-4724-8515-a587c917d30e.jpeg',
     category: 'Office Design',
     title: 'Traditional Executive Office',
@@ -19,6 +20,7 @@ const PROJECTS = [
   },
   {
     id: 3,
+    portfolioId: 6,
     image: '/travel agency/59917b89-1d2a-4971-abea-ba38e5e9a4cb.jpeg',
     category: 'Commercial',
     title: 'Travel Agency',
@@ -26,6 +28,7 @@ const PROJECTS = [
   },
   {
     id: 4,
+    portfolioId: 2,
     image: '/bedroom/e5a21ac8-dc5e-4994-b9e4-81a15e8e054e.jpeg',
     category: 'Interior Design',
     title: 'Luxury Bedroom',
@@ -100,50 +103,11 @@ function Label({ children }) {
   )
 }
 
-function ImageLightbox({ src, alt, onClose }) {
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === 'Escape') onClose() }
-    window.addEventListener('keydown', onKey)
-    document.body.style.overflow = 'hidden'
-    return () => {
-      window.removeEventListener('keydown', onKey)
-      document.body.style.overflow = ''
-    }
-  }, [onClose])
-
-  return (
-    <div
-      className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-      onClick={onClose}
-    >
-      <button
-        onClick={onClose}
-        className="absolute top-4 right-5 text-white/70 hover:text-white text-3xl font-light"
-      >
-        ×
-      </button>
-      <img
-        src={src}
-        alt={alt}
-        className="max-w-full max-h-[90vh] object-contain"
-        onClick={e => e.stopPropagation()}
-      />
-    </div>
-  )
-}
-
 export default function Home() {
-  const [lightbox, setLightbox] = useState(null)
+  const navigate = useNavigate()
 
   return (
     <div className="overflow-x-hidden">
-      {lightbox && (
-        <ImageLightbox
-          src={lightbox.image}
-          alt={lightbox.title}
-          onClose={() => setLightbox(null)}
-        />
-      )}
       {/* ── HERO ── */}
       <section className="min-h-screen md:h-screen flex flex-col md:flex-row">
         {/* Text panel */}
@@ -232,7 +196,7 @@ export default function Home() {
               <Reveal key={p.id} delay={i * 0.07}>
                 <div
                   className="group relative overflow-hidden bg-gray-50 aspect-[4/3] cursor-pointer"
-                  onClick={() => setLightbox(p)}
+                  onClick={() => navigate('/portfolio', { state: { openId: p.portfolioId } })}
                 >
                   <img
                     src={p.image}
