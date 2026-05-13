@@ -28,17 +28,6 @@ const PROJECTS = [
     ],
   },
   {
-    id: 3,
-    category: 'Interior',
-    title: 'Modern Kitchen & Interior',
-    images: [
-      '/interior/1f79eee1-4f70-493d-9d1e-0a211469f981.jpeg',
-      '/interior/2a70e09a-2c97-41ee-8ec0-b4ad56bbba41.jpeg',
-      '/interior/44faa8b3-ee6e-47e9-a19f-b2c4b4611944.jpeg',
-      '/interior/4e8ffa4d-7ee8-4ecc-9901-55635502343a.jpeg',
-    ],
-  },
-  {
     id: 4,
     category: 'Commercial',
     title: 'Beauty Saloon',
@@ -93,7 +82,7 @@ const PROJECTS = [
   },
 ]
 
-const FILTERS = ['All', 'Bungalow', 'Bedroom', 'Interior', 'Office', 'Commercial']
+const FILTERS = ['All', 'Bungalow', 'Bedroom', 'Office', 'Commercial']
 
 function Lightbox({ project, startIndex, onClose }) {
   const [current, setCurrent] = useState(startIndex)

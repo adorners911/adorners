@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useInView } from '../hooks/useInView'
 
@@ -99,9 +100,50 @@ function Label({ children }) {
   )
 }
 
+function ImageLightbox({ src, alt, onClose }) {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [onClose])
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-5 text-white/70 hover:text-white text-3xl font-light"
+      >
+        ×
+      </button>
+      <img
+        src={src}
+        alt={alt}
+        className="max-w-full max-h-[90vh] object-contain"
+        onClick={e => e.stopPropagation()}
+      />
+    </div>
+  )
+}
+
 export default function Home() {
+  const [lightbox, setLightbox] = useState(null)
+
   return (
     <div className="overflow-x-hidden">
+      {lightbox && (
+        <ImageLightbox
+          src={lightbox.image}
+          alt={lightbox.title}
+          onClose={() => setLightbox(null)}
+        />
+      )}
       {/* ── HERO ── */}
       <section className="min-h-screen md:h-screen flex flex-col md:flex-row">
         {/* Text panel */}
@@ -188,7 +230,10 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6">
             {PROJECTS.map((p, i) => (
               <Reveal key={p.id} delay={i * 0.07}>
-                <Link to="/portfolio" className="group relative overflow-hidden bg-gray-50 aspect-[4/3] block">
+                <div
+                  className="group relative overflow-hidden bg-gray-50 aspect-[4/3] cursor-pointer"
+                  onClick={() => setLightbox(p)}
+                >
                   <img
                     src={p.image}
                     alt={p.title}
@@ -209,7 +254,7 @@ export default function Home() {
                       {p.category}
                     </span>
                   </div>
-                </Link>
+                </div>
               </Reveal>
             ))}
           </div>
