@@ -146,7 +146,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <p className="font-sans text-xs tracking-[0.18em] uppercase text-muted/50 mb-1">Email</p>
-                    <a href="mailto:hello@adorners.pk" className="font-sans text-base text-dark hover:text-brand transition-colors break-all">
+                    <a href="https://mail.google.com/mail/?view=cm&to=hello@adorners.pk" target="_blank" rel="noopener noreferrer" className="font-sans text-base text-dark hover:text-brand transition-colors break-all">
                       hello@adorners.pk
                     </a>
                   </div>

@@ -125,7 +125,7 @@ export default function Navbar() {
             <a href="https://wa.me/923273273667" className="font-sans text-sm text-muted hover:text-brand transition-colors">
               WhatsApp: 0327 3273667
             </a>
-            <a href="mailto:hello@adorners.pk" className="font-sans text-sm text-muted hover:text-brand transition-colors">
+            <a href="https://mail.google.com/mail/?view=cm&to=hello@adorners.pk" target="_blank" rel="noopener noreferrer" className="font-sans text-sm text-muted hover:text-brand transition-colors">
               hello@adorners.pk
             </a>
           </div>

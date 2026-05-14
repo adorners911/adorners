@@ -73,7 +73,7 @@ export default function Footer() {
                 Phone: 0327 3273667
               </a>
               <a
-                href="mailto:hello@adorners.pk"
+                href="https://mail.google.com/mail/?view=cm&to=hello@adorners.pk" target="_blank" rel="noopener noreferrer"
                 className="font-sans text-sm text-white/60 hover:text-brand transition-colors duration-200"
               >
                 hello@adorners.pk
