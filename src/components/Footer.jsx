@@ -73,10 +73,10 @@ export default function Footer() {
                 Phone: 0327 3273667
               </a>
               <a
-                href="mailto:adornersaic@gmail.com"
+                href="mailto:hello@adorners.pk"
                 className="font-sans text-sm text-white/60 hover:text-brand transition-colors duration-200"
               >
-                adornersaic@gmail.com
+                hello@adorners.pk
               </a>
               <address className="font-sans text-sm text-white/40 not-italic leading-relaxed mt-1">
                 Hallmark Tower 2, Plot No. 96<br />
