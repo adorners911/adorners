@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useInView } from '../hooks/useInView'
+import { Helmet } from 'react-helmet-async'
+import { Reveal, Label } from '../components/Reveal'
 
 const PROJECTS = [
   {
@@ -9,6 +10,7 @@ const PROJECTS = [
     category: 'Architecture',
     title: 'Modern Bungalow',
     location: 'Karachi',
+    alt: 'Modern bungalow architecture and interior design in Karachi by Adorners',
   },
   {
     id: 2,
@@ -17,6 +19,7 @@ const PROJECTS = [
     category: 'Office Design',
     title: 'Traditional Executive Office',
     location: 'Karachi',
+    alt: 'Traditional executive office interior design in Karachi by Adorners',
   },
   {
     id: 3,
@@ -25,6 +28,7 @@ const PROJECTS = [
     category: 'Commercial',
     title: 'Travel Agency',
     location: 'Karachi',
+    alt: 'Travel agency commercial interior design in Karachi by Adorners',
   },
   {
     id: 4,
@@ -33,6 +37,7 @@ const PROJECTS = [
     category: 'Interior Design',
     title: 'Luxury Bedroom',
     location: 'Karachi',
+    alt: 'Luxury bedroom interior design in Karachi by Adorners',
   },
 ]
 
@@ -50,8 +55,11 @@ const SERVICES = [
   },
   {
     title: 'Interior Design',
+    // Links to the dedicated Karachi interior design page instead of straight to contact.
+    href: '/interior-design-karachi',
+    cta: 'Learn More',
     description:
-      'Space planning, material selection, 3D visualization, and full styling — every room designed with intention, from concept board to final reveal.',
+      'Professional interior design in Karachi — space planning, material selection, 3D visualization, and full styling. Every room designed with intention, from concept board to final reveal.',
     icon: (
       <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="40" height="40">
         <rect x="4" y="4" width="40" height="32" rx="2" />
@@ -63,7 +71,7 @@ const SERVICES = [
   {
     title: 'Civil Work',
     description:
-      'Full construction, site supervision, finishing, and key handover — no second contractor required. We build what we design.',
+      'Full construction, site supervision, finishing, and key handover across Karachi — no second contractor required. We build what we design.',
     icon: (
       <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="40" height="40">
         <path d="M8 44V16h32v28M4 16l20-12 20 12" />
@@ -80,34 +88,67 @@ const STATS = [
   { value: '1', label: 'Team. Everything.' },
 ]
 
-// ── Reusable reveal wrapper ──
-function Reveal({ children, delay = 0, className = '' }) {
-  const [ref, inView] = useInView()
-  return (
-    <div
-      ref={ref}
-      className={`reveal ${inView ? 'visible' : ''} ${className}`}
-      style={{ transitionDelay: `${delay}s` }}
-    >
-      {children}
-    </div>
-  )
+const FAQS = [
+  {
+    q: 'What interior design services does Adorners offer in Karachi?',
+    a: 'We cover residential interiors (bedrooms, living areas, full homes), office and workspace interiors, and commercial or retail interiors. Every project includes space planning, material and finish selection, 3D visualization, and complete styling.',
+  },
+  {
+    q: 'Do you handle both design and construction?',
+    a: 'Yes. Architecture, interior design, and civil work are all done in-house, so we build exactly what we design. You get a single point of contact from the first drawing to key handover — no second contractor to coordinate with.',
+  },
+  {
+    q: 'How much does interior design cost in Karachi?',
+    a: 'There is no fixed rate — cost depends on the area, the scope of work, and the level of materials and finishes you choose. Once we understand your requirement and see the space, we share an itemised quote so you know exactly what you are paying for.',
+  },
+  {
+    q: 'Do you provide 3D visualization before work starts?',
+    a: 'Yes. 3D renders and visualization are part of both our architecture and interior design service, so you can see and approve the space before any construction begins.',
+  },
+  {
+    q: 'Do you design residential and commercial spaces?',
+    a: 'Both. Our completed work in Karachi includes modern bungalows, luxury bedroom suites, executive offices, a beauty salon, a travel agency, and a retail garments showroom.',
+  },
+  {
+    q: 'Is the first consultation free?',
+    a: 'Yes, the initial consultation is free. Call or WhatsApp us at 0327 3273667, or send your project details through the contact form and we will get back to you.',
+  },
+  {
+    q: 'Where is Adorners located?',
+    a: 'Our office is at Hallmark Tower 2, Plot No. 96, Suit No 301, Midway Commercial-B, Bahria Town, Karachi.',
+  },
+]
+
+// FAQPage schema — lets Google show these questions directly in search results.
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQS.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
 }
 
-// ── Section label ──
-function Label({ children }) {
-  return (
-    <span className="inline-block font-sans text-xs tracking-[0.2em] uppercase text-brand mb-3">
-      {children}
-    </span>
-  )
-}
 
 export default function Home() {
   const navigate = useNavigate()
 
   return (
     <div className="overflow-x-hidden">
+      <Helmet>
+        <title>Interior Design Experts in Karachi | Adorners Architects</title>
+        <meta name="description" content="Looking for the best interior design experts in Karachi? Adorners offers professional interior design, architecture, and civil construction from concept to key handover. Get a free consultation." />
+        <meta name="keywords" content="best interior design experts in Karachi, professional interior design in Karachi, interior designers in Karachi, top interior design company in Karachi, interior design Bahria Town Karachi, home interior design Karachi, office interior design Karachi, architects in Karachi, civil construction Karachi, design and build firm Karachi" />
+        <link rel="canonical" href="https://adorners.pk/" />
+        <meta property="og:title" content="Interior Design Experts in Karachi | Adorners Architects" />
+        <meta property="og:description" content="Professional interior design in Karachi. Architecture, interior design, and civil construction under one roof — from concept to key handover." />
+        <meta property="og:url" content="https://adorners.pk/" />
+        <meta name="twitter:title" content="Interior Design Experts in Karachi | Adorners Architects" />
+        <meta name="twitter:description" content="Professional interior design in Karachi. Architecture, interior design, and civil construction under one roof — from concept to key handover." />
+        <script type="application/ld+json">{JSON.stringify(FAQ_SCHEMA)}</script>
+      </Helmet>
+
       {/* ── HERO ── */}
       <section className="min-h-screen md:h-screen flex flex-col md:flex-row">
         {/* Text panel */}
@@ -125,7 +166,7 @@ export default function Home() {
           </h1>
 
           <p className="animate-hero-sub font-sans text-base text-muted leading-relaxed mt-6 max-w-xs">
-            One firm handles everything — from initial concept to final handover. No coordination headaches, one clear vision.
+            Interior design, architecture, and civil work in Karachi — one firm from concept to final handover. No coordination headaches, one clear vision.
           </p>
 
           <div className="animate-hero-cta flex flex-col sm:flex-row gap-3 mt-9">
@@ -153,7 +194,7 @@ export default function Home() {
         <div className="w-full md:w-[58%] h-[50vh] md:h-full relative overflow-hidden">
           <img
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80"
-            alt="Modern architecture by Adorners"
+            alt="Modern residential architecture and interior design project in Karachi by Adorners"
             className="w-full h-full object-cover hero-image-reveal visible"
             loading="eager"
           />
@@ -163,7 +204,7 @@ export default function Home() {
               className="font-sans text-xs tracking-[0.3em] uppercase text-white/70 bg-dark/40 backdrop-blur-sm px-3 py-2"
               style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)', letterSpacing: '0.3em' }}
             >
-              Adorners AIC
+              Adorners
             </div>
           </div>
           {/* Scroll hint on mobile */}
@@ -180,7 +221,7 @@ export default function Home() {
             <div>
               <Label>Selected Work</Label>
               <h2 className="font-display font-light text-4xl md:text-5xl text-dark leading-tight">
-                Recent Projects
+                Recent Projects in Karachi
               </h2>
             </div>
             <Link
@@ -195,19 +236,23 @@ export default function Home() {
             {PROJECTS.map((p, i) => (
               <Reveal key={p.id} delay={i * 0.07}>
                 <div
+                  role="button"
+                  tabIndex={0}
                   className="group relative overflow-hidden bg-gray-50 aspect-[4/3] cursor-pointer"
                   onClick={() => navigate('/portfolio', { state: { openId: p.portfolioId } })}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); navigate('/portfolio', { state: { openId: p.portfolioId } }) } }}
+                  aria-label={`View ${p.title} project`}
                 >
                   <img
                     src={p.image}
-                    alt={p.title}
+                    alt={p.alt}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
                   />
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   {/* Info */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                     <p className="font-sans text-xs tracking-[0.18em] uppercase text-brand mb-1">{p.category}</p>
                     <p className="font-display font-light text-xl text-white">{p.title}</p>
                     <p className="font-sans text-xs text-white/60 mt-1">{p.location}</p>
@@ -240,7 +285,7 @@ export default function Home() {
           </Reveal>
           <Reveal delay={0.2}>
             <p className="font-sans text-base text-muted leading-relaxed mt-6 max-w-xl mx-auto">
-              Most firms hand you off between architects, interior designers, and contractors — with your project caught in the middle. Adorners handles all three disciplines in-house, keeping quality consistent from the first sketch to the final coat of paint.
+              Most firms in Karachi hand you off between architects, interior designers, and contractors — with your project caught in the middle. Adorners handles all three disciplines in-house, keeping quality consistent from the first sketch to the final coat of paint.
             </p>
           </Reveal>
 
@@ -289,10 +334,10 @@ export default function Home() {
                   <h3 className="font-display font-medium text-2xl text-dark mb-3">{s.title}</h3>
                   <p className="font-sans text-sm text-muted leading-relaxed flex-1">{s.description}</p>
                   <Link
-                    to="/contact"
+                    to={s.href ?? '/contact'}
                     className="mt-6 font-sans text-xs tracking-[0.15em] uppercase text-brand opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   >
-                    Enquire →
+                    {s.cta ?? 'Enquire'} →
                   </Link>
                 </div>
               </Reveal>
@@ -311,6 +356,38 @@ export default function Home() {
                   <span className="font-display font-light text-6xl md:text-7xl text-brand">{s.value}</span>
                   <span className="font-sans text-sm text-white/50 tracking-wide mt-2">{s.label}</span>
                 </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="py-20 lg:py-28 bg-white border-t border-gray-100">
+        <div className="max-w-3xl mx-auto px-6 lg:px-10">
+          <Reveal>
+            <Label>Questions</Label>
+            <h2 className="font-display font-light text-4xl md:text-5xl text-dark leading-tight mt-1">
+              Frequently Asked Questions
+            </h2>
+          </Reveal>
+
+          <div className="mt-12 divide-y divide-gray-100 border-y border-gray-100">
+            {FAQS.map(({ q, a }, i) => (
+              <Reveal key={q} delay={i * 0.05}>
+                <details className="group py-5">
+                  <summary className="flex items-start justify-between gap-6 cursor-pointer list-none">
+                    <h3 className="font-display font-medium text-lg md:text-xl text-dark group-hover:text-brand transition-colors">
+                      {q}
+                    </h3>
+                    <span className="flex-shrink-0 mt-1 text-brand text-xl leading-none transition-transform duration-300 group-open:rotate-45">
+                      +
+                    </span>
+                  </summary>
+                  <p className="font-sans text-sm text-muted leading-relaxed mt-3 pr-10">
+                    {a}
+                  </p>
+                </details>
               </Reveal>
             ))}
           </div>

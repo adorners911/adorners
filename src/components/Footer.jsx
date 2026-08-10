@@ -2,7 +2,10 @@ import { Link } from 'react-router-dom'
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
+  { to: '/interior-design-karachi', label: 'Interior Design in Karachi' },
+  { to: '/portfolio', label: 'Portfolio' },
   { to: '/contact', label: 'Contact' },
+  { to: '/privacy', label: 'Privacy Policy' },
 ]
 
 export default function Footer() {
@@ -15,7 +18,7 @@ export default function Footer() {
             <Link to="/" className="inline-block">
               <img
                 src="/dfsd no bg.png"
-                alt="Adorners"
+                alt="Adorners — interior design and architecture firm in Karachi"
                 style={{ height: '64px', width: 'auto', filter: 'brightness(0) invert(1)' }}
               />
             </Link>
@@ -23,7 +26,7 @@ export default function Footer() {
               Architects · Interior · Civil
             </p>
             <p className="mt-5 font-sans text-sm text-white/55 leading-relaxed max-w-xs">
-              Bahria Town's all-in-one design-build firm. We handle architecture, interior design, and civil construction — from concept to key handover.
+              Professional interior design in Karachi. We handle architecture, interior design, and civil construction in-house — from concept to key handover.
             </p>
             <a
               href="https://wa.me/923273273667?text=Hi+Adorners!+I'm+interested+in+your+services."
