@@ -4,6 +4,7 @@ import Logo from './Logo'
 
 const NAV_LINKS = [
   { to: '/', label: 'Home', end: true },
+  { to: '/interior-design-karachi', label: 'Interior Design', end: true },
   { to: '/portfolio', label: 'Portfolio', end: true },
   { to: '/contact', label: 'Contact', end: true },
 ]
@@ -37,7 +38,8 @@ export default function Navbar() {
             <Logo size="md" />
 
             {/* Desktop */}
-            <div className="hidden md:flex items-center gap-10">
+            {/* gap tightens at md so the 4 links + button fit without wrapping */}
+            <div className="hidden md:flex items-center gap-6 lg:gap-10">
               {NAV_LINKS.map(({ to, label, end }) => (
                 <NavLink
                   key={to}

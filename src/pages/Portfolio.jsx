@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { useInView } from '../hooks/useInView'
 
 const PROJECTS = [
@@ -7,6 +8,7 @@ const PROJECTS = [
     id: 1,
     category: 'Bungalow',
     title: 'Modern Bungalow',
+    alt: 'Modern bungalow architecture and interior design in Karachi',
     images: [
       '/banglow/bc17ae0f-7cfb-40f0-b4f2-8ec12a8256eb.jpeg',
       '/banglow/05e19157-b18e-4568-8ab3-ddfd78ca8c2d.jpeg',
@@ -19,6 +21,7 @@ const PROJECTS = [
     id: 2,
     category: 'Bedroom',
     title: 'Luxury Bedroom Suite',
+    alt: 'Luxury bedroom interior design in Karachi',
     images: [
       '/bedroom/39798130-9b9a-45cd-8a8c-5220af576d38.jpeg',
       '/bedroom/1a400eed-4e0d-4320-addd-f3619d22b5c2.jpeg',
@@ -30,7 +33,8 @@ const PROJECTS = [
   {
     id: 4,
     category: 'Commercial',
-    title: 'Beauty Saloon',
+    title: 'Beauty Salon',
+    alt: 'Beauty salon commercial interior design in Karachi',
     images: [
       '/saloon/30bc01c5-c86e-41a9-982a-90c8e026bc0e.jpeg',
       '/saloon/57ecf808-7110-43c5-a9db-78eea4ce6eec.jpeg',
@@ -46,6 +50,7 @@ const PROJECTS = [
     id: 5,
     category: 'Office',
     title: 'Traditional Executive Office',
+    alt: 'Traditional executive office interior design in Karachi',
     images: [
       '/tradational office/14998486-66d4-4724-8515-a587c917d30e.jpeg',
       '/tradational office/4bea625a-1021-4519-8b11-ea6f4ac919c0.jpeg',
@@ -57,6 +62,7 @@ const PROJECTS = [
     id: 6,
     category: 'Commercial',
     title: 'Travel Agency',
+    alt: 'Travel agency office interior design in Karachi',
     images: [
       '/travel agency/298ed607-c7ab-4bed-b8f9-0646a798e4a9.jpeg',
       '/travel agency/59917b89-1d2a-4971-abea-ba38e5e9a4cb.jpeg',
@@ -69,6 +75,7 @@ const PROJECTS = [
     id: 7,
     category: 'Commercial',
     title: 'SM Garments Showroom',
+    alt: 'Retail garments showroom interior design in Karachi',
     images: [
       '/sm garments/4bf28366-fab7-4706-8e7e-f05d0cab3a13.jpeg',
       '/sm garments/20ee703a-7858-400e-9f8e-84861151d90d.jpeg',
@@ -108,7 +115,8 @@ function Lightbox({ project, startIndex, onClose }) {
     >
       <button
         onClick={onClose}
-        className="absolute top-4 right-5 text-white/70 hover:text-white text-3xl font-light"
+        aria-label="Close lightbox"
+        className="absolute top-4 right-5 text-white/70 hover:text-white text-3xl font-light w-11 h-11 flex items-center justify-center"
       >
         ×
       </button>
@@ -119,7 +127,7 @@ function Lightbox({ project, startIndex, onClose }) {
       >
         <img
           src={project.images[current]}
-          alt={project.title}
+          alt={`${project.alt} — photo ${current + 1} of ${project.images.length}`}
           className="w-full max-h-[75vh] object-contain"
         />
 
@@ -127,16 +135,29 @@ function Lightbox({ project, startIndex, onClose }) {
           <>
             <button
               onClick={() => setCurrent(c => (c - 1 + project.images.length) % project.images.length)}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 text-white/70 hover:text-white text-4xl px-3"
+              aria-label="Previous image"
+              className="absolute left-0 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl px-3 py-4 -translate-x-full md:-translate-x-12 hidden md:block"
             >
               ‹
             </button>
             <button
               onClick={() => setCurrent(c => (c + 1) % project.images.length)}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 text-white/70 hover:text-white text-4xl px-3"
+              aria-label="Next image"
+              className="absolute right-0 top-1/2 -translate-y-1/2 text-white/70 hover:text-white text-4xl px-3 py-4 translate-x-full md:translate-x-12 hidden md:block"
             >
               ›
             </button>
+            {/* Mobile swipe-friendly prev/next — overlay on image edges */}
+            <button
+              onClick={() => setCurrent(c => (c - 1 + project.images.length) % project.images.length)}
+              aria-label="Previous image"
+              className="absolute left-0 top-0 bottom-0 w-1/4 md:hidden"
+            />
+            <button
+              onClick={() => setCurrent(c => (c + 1) % project.images.length)}
+              aria-label="Next image"
+              className="absolute right-0 top-0 bottom-0 w-1/4 md:hidden"
+            />
           </>
         )}
       </div>
@@ -166,13 +187,17 @@ function ProjectCard({ project, onOpen }) {
   return (
     <div
       ref={ref}
+      role="button"
+      tabIndex={0}
       className={`group cursor-pointer transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
       onClick={() => onOpen(project, 0)}
+      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen(project, 0) } }}
+      aria-label={`View ${project.title} — ${project.images.length} photos`}
     >
       <div className="relative overflow-hidden aspect-[4/3] bg-gray-100">
         <img
           src={project.images[0]}
-          alt={project.title}
+          alt={project.alt}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-dark/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
@@ -215,6 +240,18 @@ export default function Portfolio() {
 
   return (
     <div className="pt-20 md:pt-24">
+      <Helmet>
+        <title>Interior Design & Architecture Portfolio in Karachi | Adorners</title>
+        <meta name="description" content="Browse the portfolio of Adorners, professional interior design experts in Karachi — bungalows, offices, and commercial interiors, plus architecture and civil construction in Bahria Town." />
+        <meta name="keywords" content="interior design portfolio Karachi, best interior design experts in Karachi, professional interior design in Karachi, home interior design Karachi, office interior design Karachi, commercial interior design Karachi, architecture projects Karachi, interior design Bahria Town Karachi" />
+        <link rel="canonical" href="https://adorners.pk/portfolio" />
+        <meta property="og:title" content="Interior Design & Architecture Portfolio in Karachi | Adorners" />
+        <meta property="og:description" content="Browse Adorners' portfolio of architecture, interior design, and civil construction projects in Bahria Town Karachi." />
+        <meta property="og:url" content="https://adorners.pk/portfolio" />
+        <meta name="twitter:title" content="Interior Design & Architecture Portfolio in Karachi | Adorners" />
+        <meta name="twitter:description" content="Browse Adorners' portfolio of architecture, interior design, and civil construction projects in Bahria Town Karachi." />
+      </Helmet>
+
       {lightbox && (
         <Lightbox
           project={lightbox.project}
@@ -228,10 +265,10 @@ export default function Portfolio() {
         <div className={`max-w-3xl mx-auto text-center transition-all duration-700 ${heroInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <span className="font-sans text-xs text-brand uppercase tracking-[0.2em]">Our Work</span>
           <h1 className="font-display text-4xl md:text-6xl text-dark font-light mt-3 mb-5">
-            Spaces We've Crafted
+            Spaces We've Crafted in Karachi
           </h1>
           <p className="font-sans text-base text-muted max-w-xl mx-auto leading-relaxed">
-            From concept to completion — every project reflects our commitment to precision, beauty, and function.
+            From concept to completion — every interior design and architecture project we deliver in Karachi reflects our commitment to precision, beauty, and function.
           </p>
         </div>
       </section>

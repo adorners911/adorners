@@ -3,3 +3,6 @@ dist
 .env
 .env.local
 .DS_Store
+
+# Favicon generator source archive — the generated files in public/favicon/ are what ship
+public/favicon.zip

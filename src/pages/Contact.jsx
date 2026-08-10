@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { useInView } from '../hooks/useInView'
+import { Helmet } from 'react-helmet-async'
+import { Reveal, Label } from '../components/Reveal'
 
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
 
@@ -33,26 +34,6 @@ const PRICING_TYPES = [
   'Not sure — need guidance',
 ]
 
-function Reveal({ children, delay = 0, className = '' }) {
-  const [ref, inView] = useInView()
-  return (
-    <div
-      ref={ref}
-      className={`reveal ${inView ? 'visible' : ''} ${className}`}
-      style={{ transitionDelay: `${delay}s` }}
-    >
-      {children}
-    </div>
-  )
-}
-
-function Label({ children }) {
-  return (
-    <span className="inline-block font-sans text-xs tracking-[0.2em] uppercase text-brand mb-3">
-      {children}
-    </span>
-  )
-}
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -80,7 +61,7 @@ export default function Contact() {
       })
       if (res.ok) {
         setStatus('success')
-        setForm({ name: '', phone: '', projectType: '', message: '' })
+        setForm({ name: '', phone: '', projectType: '', budget: '', pricingType: '', message: '' })
       } else {
         setStatus('error')
       }
@@ -91,6 +72,18 @@ export default function Contact() {
 
   return (
     <div className="overflow-x-hidden">
+      <Helmet>
+        <title>Contact Interior Designers in Karachi | Adorners — Free Consultation</title>
+        <meta name="description" content="Get a free consultation with Adorners — professional interior design in Karachi, plus architecture and civil construction. Call, WhatsApp, or fill out the form." />
+        <meta name="keywords" content="interior design consultation Karachi, professional interior design in Karachi, best interior design experts in Karachi, hire interior designer Karachi, interior design company Bahria Town Karachi, architects in Karachi contact" />
+        <link rel="canonical" href="https://adorners.pk/contact" />
+        <meta property="og:title" content="Contact Interior Designers in Karachi | Adorners — Free Consultation" />
+        <meta property="og:description" content="Get a free consultation with Adorners — Bahria Town's architecture, interior design, and civil construction firm." />
+        <meta property="og:url" content="https://adorners.pk/contact" />
+        <meta name="twitter:title" content="Contact Interior Designers in Karachi | Adorners — Free Consultation" />
+        <meta name="twitter:description" content="Get a free consultation with Adorners — Bahria Town's architecture, interior design, and civil construction firm." />
+      </Helmet>
+
       {/* ── PAGE HEADER ── */}
       <section className="pt-32 pb-16 bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
@@ -184,10 +177,11 @@ export default function Contact() {
                   <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                     {/* Name */}
                     <div>
-                      <label className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
+                      <label htmlFor="name" className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
                         Your Name *
                       </label>
                       <input
+                        id="name"
                         type="text"
                         name="name"
                         value={form.name}
@@ -200,10 +194,11 @@ export default function Contact() {
 
                     {/* Phone */}
                     <div>
-                      <label className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
+                      <label htmlFor="phone" className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
                         Phone / WhatsApp *
                       </label>
                       <input
+                        id="phone"
                         type="tel"
                         name="phone"
                         value={form.phone}
@@ -216,10 +211,11 @@ export default function Contact() {
 
                     {/* Project type */}
                     <div>
-                      <label className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
+                      <label htmlFor="projectType" className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
                         Project Type
                       </label>
                       <select
+                        id="projectType"
                         name="projectType"
                         value={form.projectType}
                         onChange={handleChange}
@@ -235,10 +231,11 @@ export default function Contact() {
 
                     {/* Budget */}
                     <div>
-                      <label className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
+                      <label htmlFor="budget" className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
                         Budget Range
                       </label>
                       <select
+                        id="budget"
                         name="budget"
                         value={form.budget}
                         onChange={handleChange}
@@ -254,10 +251,11 @@ export default function Contact() {
 
                     {/* Pricing Type */}
                     <div>
-                      <label className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
+                      <label htmlFor="pricingType" className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
                         Pricing Preference
                       </label>
                       <select
+                        id="pricingType"
                         name="pricingType"
                         value={form.pricingType}
                         onChange={handleChange}
@@ -273,10 +271,11 @@ export default function Contact() {
 
                     {/* Message */}
                     <div>
-                      <label className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
+                      <label htmlFor="message" className="block font-sans text-xs tracking-[0.15em] uppercase text-dark/60 mb-2">
                         Message
                       </label>
                       <textarea
+                        id="message"
                         name="message"
                         value={form.message}
                         onChange={handleChange}
